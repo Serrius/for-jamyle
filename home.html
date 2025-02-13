@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="assets/images/love.svg" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love Jamyle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white; /* Initial background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+            transition: background-color 1s ease; /* Smooth transition for background color */
+        }
+
+        .press-message {
+            position: absolute;
+            font-size: 5vw; /* Font size for mobile */
+            color: #ff6f61;
+            cursor: pointer;
+        }
+
+        .heart {
+            position: absolute;
+            width: 55px;
+            height: 50px;
+            background: url('assets/images/love.svg');
+            background-size: cover;
+            animation: shake 0.5s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .valentine-message, .small-message {
+            display: none;
+            font-size: 6vw; /* Font size for mobile */
+            color: #ff6f61;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        .small-message {
+            font-size: 4vw; /* Slightly smaller font for the small message */
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .proceed-btn {
+            font-size: 4vw; /* Button font size for mobile */
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            visibility: hidden; /* Initially hidden */
+            opacity: 0;
+            transition: visibility 0s, opacity 1s ease-in-out;
+        }
+        
+
+        .proceed-btn:hover {
+            background-color: #e04b47;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 1s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            color: #ff6f61;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .show-button {
+            font-size: 3vw; /* Button font size for mobile */
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 2s ease-in-out;
+        }
+
+        .show-text{
+            color: #ff6f61;
+            visibility: hidden;
+            transition: visibility 0s, opacity 1s ease-in-out;
+        }
+
+        h2{
+            color: #ff6f61;
+        }
+
+        /* Fullscreen Div */
+        .fullscreen-div {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f8bbd0; /* Same color as the background */
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 1s ease-in-out;
+            z-index: 15;
+        }
+
+        /* Media Query for Desktop Screens */
+        @media (min-width: 768px) {
+            .press-message {
+                font-size: 2vw; /* Reduced size for desktop */
+            }
+
+            .valentine-message {
+                font-size: 3rem; /* Adjusted font size for desktop */
+            }
+
+            .small-message {
+                font-size: 1.5rem; /* Adjusted smaller message size for desktop */
+            }
+
+            .proceed-btn {
+                font-size: 1.5rem; /* Adjusted button size for desktop */
+            }
+
+            .show-button {
+                font-size: 1.5rem;
+            }
+        }
+
+        .message-div {
+            position: fixed;
+            text-align: center;
+            vertical-align: middle;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            font-size: 1.7rem;
+            color: white;
+            z-index: 14;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            align-items: center;     /* Center horizontally */
+            transition: opacity 1s ease-in-out;
+            font-family: 'Gloria Hallelujah', sans-serif; /* Apply Gloria Hallelujah font */
+        }
+
+        /* Button Styles */
+        .continue-btn {
+            background-color: #ff6f61;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            margin-right: 100px;
+        }
+
+        .message-div p{
+            color: #ff6f61;  
+        }
+
+        .continue-btn:hover {
+            background-color: #e04b47;
+        }
+
+        /* Button Styles */
+        .cancel-btn {
+            background-color: #ff6557;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            margin-left: 105px;
+        }
+
+        .cancel-btn:hover {
+            background-color: #ff4e48;
+        }
+
+        @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;} 
+        } 
+
+        @keyframes fadeIn {
+            100% {opacity: 1;} 
+            0% {opacity: 0;}
+        }
+
+        .flex{
+            display: flex;
+        }
+
+        #cancelBtn {
+            position: absolute; /* Allow free positioning */
+            transition: left 0.5s, top 0.5s; /* Smooth movement transition */
+        }
+
+        #evil-larry{
+            position: absolute;
+            bottom: 60%;
+        }
+        
+        #yey{
+            position: absolute;
+            bottom: 60%;
+        }
+
+        .audio-player{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <audio class="audio-player" id="audio" loop controls>
+        <source src="assets/music/evil-larry.mp3" type="audio/mp3"> <!-- Replace with your music file -->
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="press-message">Press anywhere on the screen...</div>
+
+    <div class="valentine-message">
+        <h1>Happy Valentine's Day, Langga!</h1>
+    </div>
+
+    <div class="small-message">
+        I have a surprise for you.
+    </div>
+
+    <button class="proceed-btn">Proceed with love...</button>
+
+    <!-- Modal for Surprise -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="close-btn">X</button>
+            <img src="assets/images/cat.gif" alt="Surprise Heart">
+            <h2>Surprise!</h2>
+            <p class="show-text"  id="show-more">But wait there's more?</p>
+            <button class="show-button" id="show-btn">Click Me!</button>
+        </div>
+    </div>
+
+      <!-- Fullscreen Div that fades in and redirects -->
+    <div class="fullscreen-div" id="fullscreen-div">
+            <!-- Message Div -->
+    <div class="message-div" id="messageDiv">
+        <img id="yey" style="display: none;" src="assets/images/heart-cat.gif">
+        <img id="evil-larry" style="display: none;" src="assets/images/evil-larry.gif">
+        <p id="terms-and-condition" style="visibility: hidden;">Before we continue you need to accept the Terms and Conditions</p>
+        <div class="flex" id="flex" style="visibility: hidden;">
+            <button class="continue-btn" id="continueBtn" >Yes</button>
+            <button class="cancel-btn" id="cancelBtn" >No</button>
+        </div>    
+    </div>
+    </div>
+
+    <!-- Audio for yay sound -->
+    <audio id="yay-sound" src="assets/sounds/yay.mp3"></audio>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script>
+        let pressCount = 0;
+        let disableHearts = false; // Flag to disable heart generation
+        let noButtonClickCount = 0; // Track number of "No" button clicks
+        let noButtonHoverCount = 0; // Track number of times "No" button is hovered over
+        const pressMessage = document.querySelector('.press-message');
+        const valentineMessage = document.querySelector('.valentine-message');
+        const smallMessage = document.querySelector('.small-message');
+        const proceedButton = document.querySelector('.proceed-btn');
+        const modal = document.querySelector('#modal');
+        const closeBtn = document.querySelector('#close-btn');
+        const showButton = document.querySelector('#show-btn');
+        const showMore = document.querySelector('#show-more');
+        const yaySound = document.querySelector('#yay-sound');
+        const fullscreenDiv = document.querySelector('#fullscreen-div');
+        const termsAndCondition = document.getElementById('terms-and-condition');
+        const divButtons = document.getElementById('flex');
+        const noButton = document.getElementById('cancelBtn');
+        const Yey = document.getElementById('yey');
+        const evilLarry = document.getElementById('evil-larry');
+        var audioPlayer = document.querySelector('.audio-player');
+        var proceedBtn = document.getElementById("continueBtn");
+            
+        proceedBtn.addEventListener("click", function() {
+                var fullscreenDiv = document.getElementById("fullscreen-div");
+                // Select the audio player
+                var audioPlayer = document.querySelector('.audio-player');
+        
+
+                var fadeDuration = 5; // Total fade duration in seconds
+                var fadeInterval = 50; // Interval for volume change (in ms)
+                var fadeStep = 1 / (fadeDuration * 1000 / fadeInterval); // Volume reduction per interval
+
+                // We need to make sure the volume doesn't go below 0 and the interval stops once we reach 0
+                var interval = setInterval(function() {
+                    // Ensure the volume is reduced but not below 0
+                    if (audioPlayer.volume > fadeStep) {
+                        audioPlayer.volume -= fadeStep;
+                        
+                    // Fade out evilLarry, divButtons, and termsAndCondition after 1 second
+                    setTimeout(function() {
+                        evilLarry.style.animation = "fadeOut 5s";
+                        divButtons.style.animation = "fadeOut 5s";
+                        termsAndCondition.style.animation = "fadeOut 5s";
+                    }, 1000); // 1 second delay before fading out
+
+                    // Hide the termsAndCondition and update the message after 5 seconds
+                    setTimeout(function() {
+                        termsAndCondition.style.visibility = "hidden";
+                        termsAndCondition.innerHTML = "I knew you would choose \"Yes\" 🥰🥰🥰";
+                    }, 6000); // 5 seconds after previous action
+
+                    // Hide evilLarry and divButtons after 5 seconds
+                    setTimeout(function() {
+                        evilLarry.style.display = "none";
+                        divButtons.style.visibility = "hidden";
+                    }, 6000); // 5 seconds after previous action
+
+                    // Show Yey image and fade-in the termsAndCondition after 5 seconds
+                    setTimeout(function() {
+                        Yey.style.display = "block";
+                        Yey.style.animation = "fadeIn 5s";
+                        termsAndCondition.style.visibility = "visible";
+                        termsAndCondition.style.animation = "fadeIn 5s";
+                    }, 11000); // 5 seconds after previous action
+
+                    // Fade-out the termsAndCondition after 5 seconds
+                    setTimeout(function() {
+                        termsAndCondition.style.animation = "fadeOut 5s";
+                    }, 16000); // 5 seconds after the previous fadeIn
+
+                    // Hide the current message and update it with a new one after 5 seconds
+                    setTimeout(function() {
+                        termsAndCondition.style.visibility = "hidden";
+                        termsAndCondition.innerHTML = "Thank you for accepting the Terms and Conditions Langga💗💗💗";
+                    }, 21000); // 5 seconds after previous action
+
+                    // Fade-in the new message after 5 seconds
+                    setTimeout(function() {
+                        termsAndCondition.style.visibility = "visible";
+                        termsAndCondition.style.animation = "fadeIn 5s";
+                    }, 26000); // 5 seconds after previous action
+
+                    // Fade-out the termsAndCondition after 5 seconds
+                    setTimeout(function() {
+                        termsAndCondition.style.animation = "fadeOut 5s";
+                    }, 31000); // 5 seconds after the previous fadeIn
+
+                    // Hide the current message and update it with another message after 5 seconds
+                    setTimeout(function() {
+                        termsAndCondition.style.visibility = "hidden";
+                        termsAndCondition.innerHTML = "ocakes na Lang you can proceed na💗💗💗";
+                    }, 36000); // 5 seconds after previous action
+
+                    // Fade-in the new message after 5 seconds
+                    setTimeout(function() {
+                        termsAndCondition.style.visibility = "visible";
+                        termsAndCondition.style.animation = "fadeIn 5s";
+                    }, 41000); // 5 seconds after previous action
+
+                    // Fade-out Yey image and termsAndCondition after 5 seconds
+                    setTimeout(function() {
+                        Yey.style.animation = "fadeOut 5s";
+                        termsAndCondition.style.animation = "fadeOut 5s";
+                    }, 46000); // 5 seconds after previous action
+
+                    // Hide Yey and termsAndCondition after the fade-out completes (5 seconds)
+                    setTimeout(function() {
+                        Yey.style.display = "none";
+                        termsAndCondition.style.visibility = "hidden";
+                    }, 51000); // 5 seconds after previous fade-out
+
+                    // Redirect after 5 seconds
+                    setTimeout(() => {
+                        window.location.href = "love.html"; // Redirect to another page
+                    }, 56000); // 5 seconds after the last action
+
+                    } else {
+                        audioPlayer.volume = 0;  // Ensure volume is set to 0 exactly when fade is finished
+                        clearInterval(interval); // Stop the fade when the volume reaches 0
+                        audioPlayer.pause(); // Optionally pause the audio when it's faded out
+                        console.log("Audio faded out and paused.");
+                    }
+                }, fadeInterval); // Repeat every 50ms to create a smooth fade
+
+
+                // Redirect after 3 seconds
+            
+            });
+
+        // Move the "No" button when hovered or clicked
+        noButton.addEventListener('click', function () {
+                // Increment hover count
+                noButtonClickCount++;
+
+            // Change the text based on hover count
+            if (noButtonClickCount === 1) {
+                termsAndCondition.innerHTML = "Are you sure?";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+            } else if (noButtonClickCount === 2) {
+                termsAndCondition.innerHTML = "Really Sure?";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+            } else if (noButtonClickCount === 3) {
+                termsAndCondition.innerHTML = "Are you Positive?";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+            } else if (noButtonClickCount === 4) {
+                termsAndCondition.innerHTML = "Wait please don't click it again I can sense Evil Larry";
+                termsAndCondition.style.animation = 'fadeIn 3s';        
+            } else if (noButtonClickCount >= 5) {
+                proceedBtn.disabled = true;
+                proceedBtn.style.opacity = "0.8";
+                audioPlayer.play();    
+                evilLarry.style.display = 'block';
+                evilLarry.style.animation = 'fadeIn 3s';
+                setTimeout(() => {    
+                termsAndCondition.style.animation = "fadeOut 5s";
+                }, 1000); // Wait for fadeOut animation to finish
+                noButton.style.animation = 'fadeOut 5s';
+                setTimeout(() => {    
+                termsAndCondition.innerHTML = "* Evil Larry removes the \"No\"  button *";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+                noButton.style.visibility = 'hidden'; // Hide the button after fading out
+                }, 5000); // Wait for fadeOut animation to finish
+                // Fade out the No button and hide it after the click
+                setTimeout(() => {
+                termsAndCondition.style.animation = 'fadeOut 5s';
+                }, 10000); // Wait for fadeOut animation to finish
+                // Evil Larry's dialogue
+                setTimeout(() => {
+                termsAndCondition.innerHTML = "\"You're Lucky you don'ts have a peenar\" Says evil Larry";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+                }, 15000); // Wait for fadeOut animation to finish
+                setTimeout(() => {
+                termsAndCondition.style.animation = 'fadeOut 5s';
+                }, 20000); // Wait for fadeOut animation to finish
+                setTimeout(() => {
+                termsAndCondition.innerHTML = "\"I removed the \"No\" Button Instead\" Says evil Larry";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+                }, 25000); // Wait for fadeOut animation to finish
+                setTimeout(() => {
+                termsAndCondition.style.animation = 'fadeOut 5s';
+                }, 30000); // Wait for fadeOut animation to finish
+                setTimeout(() => {
+                termsAndCondition.innerHTML = "\"anyways I disabled the \"Yes\" Button\" Says evil Larry";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+                }, 35000); // Wait for fadeOut animation to finish
+                setTimeout(() => {
+                termsAndCondition.style.animation = 'fadeOut 5s';
+                }, 40000); // Wait for fadeOut animation to finish
+                setTimeout(() => {
+                termsAndCondition.innerHTML = "\"I will now turn the button on\" Says evil Larry";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+                }, 45000); // Wait for fadeOut animation to finish
+                setTimeout(() => {
+                termsAndCondition.style.animation = 'fadeOut 5s';
+                }, 50000); // Wait for fadeOut animation to finish
+                setTimeout(() => {
+                termsAndCondition.innerHTML = "\"You may now proceed no peenar creature!\" Says evil Larry";
+                termsAndCondition.style.animation = 'fadeIn 3s';
+                proceedBtn.disabled = false;
+                proceedBtn.style.opacity = "1";
+                }, 55000); // Wait for fadeOut animation to finish
+                
+
+
+                
+            }
+
+        // Calculate random position for the button, ensuring it stays inside the viewport
+        const randomX = Math.random() * (window.innerWidth - noButton.offsetWidth); // Horizontal limit
+        const randomY = Math.random() * (window.innerHeight - noButton.offsetHeight); // Vertical limit
+
+        // Set the new position for the button
+        noButton.style.marginLeft = "0px";
+        noButton.style.left = `${randomX}px`;
+        noButton.style.top = `${randomY}px`;
+        });
+        
+        // Handle click event
+        document.body.addEventListener('click', function(e) {
+            // Don't do anything if hearts are disabled
+            if (disableHearts) return;
+            
+            pressCount++;
+            
+            // Hide the initial message
+            if (pressCount === 1) {
+                pressMessage.style.display = 'none';
+            }
+
+            // Create heart at clicked position
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = `${e.pageX - 25}px`; // Position the heart at the click location
+            heart.style.top = `${e.pageY - 25}px`;
+            document.body.appendChild(heart);
+
+            // Change background color after first click
+            if (pressCount > 0) {
+                document.body.style.backgroundColor = "#f8bbd0"; /* Light pink color */
+            }
+
+            // After a certain number of clicks, reveal the Valentine's Day message and small message
+            if (pressCount >= 5) {  // Adjust number of clicks for the effect
+                valentineMessage.style.display = 'block';
+                smallMessage.style.display = 'block';
+            }
+
+            // Show the Proceed button after enough presses
+            if (pressCount >= 10) {
+                proceedButton.style.visibility = 'visible'; // Make button visible
+                proceedButton.style.opacity = '1'; // Fade in the button smoothly
+            }
+
+            // Remove heart after animation ends
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        });
+
+        // Show modal on button click
+        proceedButton.addEventListener('click', function() {
+            const defaults = {
+            spread: 360,
+            ticks: 1,
+            gravity: 0,
+            decay: 0.94,
+            startVelocity: 30,
+            shapes: ["heart"],
+            colors: ["FFC0CB", "FF69B4", "FF1493", "C71585"],
+            };
+
+            confetti({
+            ...defaults,
+            particleCount: 100,
+            scalar: 2,
+            });
+
+            confetti({
+            ...defaults,
+            particleCount: 50,
+            scalar: 3,
+            });
+
+            confetti({
+            ...defaults,
+            particleCount: 25,
+            scalar: 4,
+            });
+            
+            disableHearts = true; // Stop generating hearts
+            modal.style.display = 'flex'; // Show modal
+            
+
+            // Play the yay sound
+            yaySound.play();
+
+            // Fade in the show button inside the modal
+            setTimeout(() => {
+                showButton.style.visibility = 'visible';
+                showMore.style.visibility = 'visible';
+                showMore.style.opacity = '1';
+                showButton.style.opacity = '1';
+            }, 2000); // Delay for showing the button
+
+        });
+
+        // Close the modal
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none'; // Hide modal
+            disableHearts = false; // Enable hearts again
+            proceedButton.style.visibility = 'hidden'; // Hide proceed button again
+            proceedButton.style.opacity = '0'; // Hide button opacity
+        });
+
+
+                // Fullscreen Div Fade-in Effect
+        showButton.addEventListener('click', function () {
+            fullscreenDiv.style.visibility = 'visible'; // Make the fullscreen div visible
+            fullscreenDiv.style.opacity = '1'; // Fade it in
+
+            setTimeout(() => {
+            termsAndCondition.style.visibility = "visible";    
+            termsAndCondition.style.animation = 'fadeIn 3s';
+            }, 5000);
+
+            setTimeout(() => {    
+            termsAndCondition.style.animation = 'fadeOut 3s';
+            }, 10000);
+
+            setTimeout(() => {
+            termsAndCondition.innerHTML = "The Terms and Conditions are: Would you loves me forever?";    
+            termsAndCondition.style.animation = 'fadeIn 3s';
+            }, 13000);
+
+            setTimeout(() => {
+            divButtons.style.visibility = "visible";
+            divButtons.style.animation = "fadeIn 3s";
+            }, 16000);
+
+            // Redirect after 3 seconds
+            /*setTimeout(() => {
+                window.location.href = "love.html"; // Redirect to another page
+            }, 3000); // 3-second delay before redirect*/
+        });
+    </script>
+
+</body>
+</html>

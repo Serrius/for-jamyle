@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="assets/images/love.svg" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisit the Magic</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8bbd0; /* Background color */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow-y: hidden;
+        }
+
+        img {
+            width: 60%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ff4081;
+        }
+
+        p{
+            font-size: 1.1em;
+            color: #ff4081;
+        }
+
+        .buttons {
+            margin-bottom: 20px;
+        }
+
+        button { 
+            font-size: 3vw; /* Button font size for mobile */
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        /* Hover effects */
+        button:hover {
+            background-color: #ff3b30; /* Darker shade of red */
+            transform: scale(1.1); /* Slightly enlarge the button */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+        }
+
+        /* Animation to reveal buttons */
+        .show-buttons button {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000; /* Same color as the background */
+            opacity: 1;
+            z-index: 15;
+        }
+
+        @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;} 
+        } 
+
+        @keyframes fadeIn {
+            100% {opacity: 1;} 
+            0% {opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+    <!-- Intro Div (Preserved) -->
+    <div class="intro" id="intro"></div>
+
+    <img src="assets/images/oiia.gif" alt="Magic Moment">
+    <h1>Revisit the Magic</h1>
+    <p>Thank you sa time Langga💗💗💗</p>
+    <p>This buttons will take you back from the pages you've visited.</p>
+
+    <div class="buttons">
+        <button onclick="location.href='home.html'">Home</button>
+        <button onclick="location.href='love.html'">Love</button>
+        <button onclick="location.href='credits.html'">Credits</button>
+    </div>
+
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            var modal = document.getElementById("intro");
+
+            // Show the modal when the page loads
+            modal.style.display = "block";
+            console.log("Modal loaded successfully!");
+
+            // Function to close the modal with a fade-out effect
+            function closeModal() {
+                modal.style.animation = "fadeOut 3s";
+                setTimeout(function() {
+                    modal.style.display = "none";
+                }, 3000); // Match this to the duration of the fade-out animation
+                console.log("Modal faded and closed!");
+            }
+
+            // Close the modal automatically after 2 seconds
+            setTimeout(closeModal, 4000);
+        // Delay the button appearance
+        setTimeout(() => {
+            document.querySelector(".buttons").classList.add("show-buttons");
+        }, 2000); // 2-second delay before fading in
+    });
+    </script>
+
+</body>
+</html>

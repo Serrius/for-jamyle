@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="assets/images/love.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love Jamyle</title>
+    <style>
+         body {
+            position: relative; /* Ensure positioning context for the gradient */
+            background-image: url("assets/images/paf-bg.png");
+            font-family: "Omori2";
+            min-height: 100vh; /* Ensure the body covers the viewport height */
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #FAF9F6;
+            font-family: 'Dancing Script', cursive;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .firefly {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(255, 255, 102, 1), rgba(255, 204, 51, 0.8), rgba(255, 204, 0, 0)); 
+            border-radius: 50%;
+            animation: blink 1.5s infinite alternate, moveAround 10s infinite linear;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 102, 0.9));
+            z-index: 2;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 102, 0.9)); }
+            50% { opacity: 0.3; filter: drop-shadow(0 0 5px rgba(255, 255, 102, 0.5)); }
+            100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 102, 0.9)); }
+        }
+
+        @keyframes moveAround {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(20px, -30px); }
+            50% { transform: translate(-30px, 20px); }
+            75% { transform: translate(30px, 10px); }
+            100% { transform: translate(0, 0); }
+        }
+
+
+        .credits {
+            position: fixed;
+            width: 100%;
+            bottom: -1000%;
+            font-size: 1.2em;
+            z-index: 2;
+        }
+
+
+        .image {
+            width: 50%; /* Slightly smaller image width */
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(167, 196, 188, 0.5); /* Muted green shadow */
+        }
+
+        @keyframes scrollUp {
+            from { bottom: -1000%; }
+            to { bottom: 10%; } /* Adjust ending position as needed */
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 20px; /* Adjusted margin */
+            box-shadow: 5px 5px 15px rgba(217, 203, 179, 0.5); /* Dusty rose shadow */
+        }
+
+        .polaroid img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .caption {
+            font-size: 1em; /* Smaller caption font */
+            color: #332722; /* Dark brown caption text */
+            margin-top: 5px; /* Adjusted margin */
+        }
+
+        h2, h3 {
+            color: #fdb705; /* Warm gold headings */
+            font-family: 'Dancing Script', cursive; /* Keep the script font */
+        }
+
+        .rotate_right {
+            transform: rotate(5deg); /* Slightly less rotation */
+        }
+
+        .rotate_left {
+            transform: rotate(-5deg); /* Slightly less rotation */
+        }
+
+        .rotate_normal {
+            transform: rotate(0deg);
+        }
+
+        /* Added styles for a softer, more romantic feel */
+        .credits p {
+            margin: 5px 0; /* Adjusted paragraph spacing */
+            line-height: 1.4; /* Improved readability */
+        }
+
+        .credits h2 {
+           font-size: 2em; /* Adjusted heading size */
+        }
+        .credits h3 {
+            font-size: 1.4em; /* Adjusted heading size */
+        }
+
+        .intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f8bbd0; /* Same color as the background */
+            opacity: 1;
+            z-index: 15;
+        }
+
+        .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #011642; /* Same color as the background */
+            opacity: 0.5;
+            z-index: 2;
+        }
+
+        @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;} 
+        } 
+
+        @keyframes fadeIn {
+            100% {opacity: 1;} 
+            0% {opacity: 0;}
+        }
+
+        audio{
+            display: none;
+        }
+
+        .image-border {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Add spacing between polaroids */
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 70px solid transparent;
+            }
+
+        /* Fullscreen Div */
+        .fullscreen-div {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #000000; /* Same color as the background */
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: visibility 0s, opacity 1s ease-in-out;
+                    z-index: 15;
+            }
+
+        .message-div {
+            position: fixed;
+            text-align: center;
+            vertical-align: middle;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            font-size: 1.7rem;
+            color: white;
+            z-index: 14;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            align-items: center;     /* Center horizontally */
+            transition: opacity 1s ease-in-out;
+            font-family: 'Gloria Hallelujah', sans-serif; /* Apply Gloria Hallelujah font */
+        }
+
+        /* Optional: Add a subtle background image */
+        /* body {
+            background-image: url("path/to/your/background-image.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        } */
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+        <!-- Hidden Audio Player -->
+    <audio class="audio-player" id="audio" controls>
+        <source src="assets/music/Never-Knew-I-Needed.mp3" type="audio/mp3"> <!-- Replace with your music file -->
+        Your browser does not support the audio element.
+    </audio>
+    <div class="bg"></div>
+    <div class="credits">
+        <h2>A Journey of Us</h2>
+        <p>A Valentine gift for Jamyle</p>
+        <h3>Polaroids</h3>
+    <div class="image-border">
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-1.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-2.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-3.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-4.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-5.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-6.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-7.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-8.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-9.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-10.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-11.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-12.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-13.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-14.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-15.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-16.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-17.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-18.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-19.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-20.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-21.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-22.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-23.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-24.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-25.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-26.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-27.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-28.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-29.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-30.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-31.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-32.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-33.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-34.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-35.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-36.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-37.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-38.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-39.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-40.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-41.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-42.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-43.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-44.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-45.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-46.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-47.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-48.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-49.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-50.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-51.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-52.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-53.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-54.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-55.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-56.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>    
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-57.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-58.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-59.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-60.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>    
+
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-61.png" alt="Polaroid">
+            <p class="caption"></p> </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-62.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-63.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+
+        <div class="polaroid">
+            <img class="image" src="assets/images/polaroid-64.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>   
+    </div>
+        <h3>Our first Meeting</h3>
+        <div class="polaroid rotate_normal" style="width: auto;">
+            <img width="auto" src="assets/images/polaroid-65.png" alt="Polaroid">
+            <p class="caption"></p>
+        </div>
+        </div>
+            <!-- Intro Div (Preserved) -->
+        <div class="intro" id="intro"></div>
+        <div class="fullscreen-div" id="fullscreen-div">
+        <div class="message-div">
+        <h2 style="color: white;" id="end">End</h2>    
+        </div>   
+        </div>
+        
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const numFireflies = 50;
+            for (let i = 0; i < numFireflies; i++) {
+                let firefly = document.createElement("div");
+                firefly.classList.add("firefly");
+                document.body.appendChild(firefly);
+                firefly.style.top = Math.random() * 100 + "vh";
+                firefly.style.left = Math.random() * 100 + "vw";
+                firefly.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            }
+
+            var modal = document.getElementById("intro");
+            var audioPlayer = document.querySelector('.audio-player');
+            var credits = document.querySelector('.credits');
+            var fullscreenDiv = document.getElementById("fullscreen-div");
+            var end = document.getElementById("end");
+
+            // Show the modal when the page loads
+            modal.style.display = "block";
+            console.log("Modal loaded successfully!");
+
+            // Function to close the modal with a fade-out effect
+            function closeModal() {
+                modal.style.animation = "fadeOut 3s";
+                setTimeout(function() {
+                    modal.style.display = "none";
+                }, 3000); // Match this to the duration of the fade-out animation
+                console.log("Modal faded and closed!");
+                audioPlayer.play();
+            }
+
+            // Close the modal automatically after 2 seconds
+            setTimeout(closeModal, 4000);
+
+            setTimeout(function() {
+                credits.style.animation = "scrollUp 210s linear forwards";
+            }, 6000);
+
+            setTimeout(function() {
+            fullscreenDiv.style.visibility = 'visible'; // Make the fullscreen div visible
+            fullscreenDiv.style.opacity = '1'; // Fade it in
+            }, 222000);
+
+
+            setTimeout(function() {
+            end.style.animation = "fadeOut 5s"; 
+            }, 227000);
+
+            setTimeout(function() {
+            end.style.visibility = "hidden"; 
+            }, 231000);
+
+            setTimeout(function() {
+            window.location.href = "lobby.html";
+            }, 235000);
+
+            const polaroids = document.querySelectorAll(".polaroid");
+            const rotations = ["rotate_right", "rotate_left", "rotate_normal"];
+
+        polaroids.forEach(polaroid => {
+            const randomRotation = rotations[Math.floor(Math.random() * rotations.length)];
+            polaroid.classList.add(randomRotation);
+        });
+        });
+    </script>
+</body>
+</html>
