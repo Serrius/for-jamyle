@@ -7,38 +7,33 @@
     <title>Revisit the Magic</title>
     <style>
         body {
-            background-color: #f8bbd0; /* Background color */
+            background-color: #f8bbd0;
             font-family: Arial, sans-serif;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow-y: hidden;
+            min-height: 100vh; /* Ensures content isn't squished */
+            margin: 0;
+            padding: 20px;
         }
 
         img {
             width: 60%;
-            height: 50%;
             max-width: 400px;
         }
 
-        h1 {
-            font-size: 2.5em;
-            color: #ff4081;
-        }
-
-        p{
-            font-size: 1.1em;
+        h1, p {
             color: #ff4081;
         }
 
         .buttons {
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         button { 
-            font-size: 3vw; /* Button font size for mobile */
+            font-size: 3vw;
             background-color: #ff6f61;
             color: white;
             border: none;
@@ -48,14 +43,14 @@
             margin: 10px;
             visibility: hidden;
             opacity: 0;
-            transition: visibility 0s, opacity 2s ease-in-out, transform 0.2s ease-in-out;
+            transition: opacity 2s ease-in-out, transform 0.2s ease-in-out;
         }
 
         /* Hover effects */
         button:hover {
-            background-color: #ff3b30; /* Darker shade of red */
-            transform: scale(1.1); /* Slightly enlarge the button */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            background-color: #ff3b30;
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Animation to reveal buttons */
@@ -70,24 +65,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000000; /* Same color as the background */
+            background-color: black;
             opacity: 1;
             z-index: 15;
-        }
-
-        @keyframes fadeOut {
-            0% {opacity: 1;}
-            100% {opacity: 0;} 
-        } 
-
-        @keyframes fadeIn {
-            100% {opacity: 1;} 
-            0% {opacity: 0;}
+            transition: opacity 3s ease-in-out;
         }
     </style>
 </head>
 <body>
-    <!-- Intro Div (Preserved) -->
+    <!-- Intro Overlay -->
     <div class="intro" id="intro"></div>
 
     <img src="assets/images/oiia.gif" alt="Magic Moment">
@@ -102,29 +88,20 @@
     </div>
 
     <script>
-            document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
             var modal = document.getElementById("intro");
 
-            // Show the modal when the page loads
-            modal.style.display = "block";
-            console.log("Modal loaded successfully!");
+            // Fade out the modal
+            setTimeout(() => {
+                modal.style.opacity = "0";
+                setTimeout(() => modal.style.display = "none", 3000);
+            }, 2000);
 
-            // Function to close the modal with a fade-out effect
-            function closeModal() {
-                modal.style.animation = "fadeOut 3s";
-                setTimeout(function() {
-                    modal.style.display = "none";
-                }, 3000); // Match this to the duration of the fade-out animation
-                console.log("Modal faded and closed!");
-            }
-
-            // Close the modal automatically after 2 seconds
-            setTimeout(closeModal, 4000);
-        // Delay the button appearance
-        setTimeout(() => {
-            document.querySelector(".buttons").classList.add("show-buttons");
-        }, 2000); // 2-second delay before fading in
-    });
+            // Show buttons after fade effect
+            setTimeout(() => {
+                document.querySelector(".buttons").classList.add("show-buttons");
+            }, 3000);
+        });
     </script>
 
 </body>
