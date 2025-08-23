@@ -1,22 +1,30 @@
-❤️ Revisit the Magic
-A heartfelt digital experience dedicated to my wife
+Overview
+This project was originally created as a personal Valentine's gift and is now kept here for archival purposes. It was a creative way to combine web design, multimedia, and storytelling through code at the time.
 
-🎬 About
-This project is a romantic, movie-style webpage designed to celebrate our love. It consists of multiple pages, each carrying a special meaning and memory.
+Contents
+The project includes several static HTML pages:
 
-📄 Pages
-home.html – A heartfelt Valentine’s greeting
-love.html – A love letter (poem) expressing my feelings
-credits.html – A scrolling end-credits page with our favorite moments in polaroid style
-🎶 Soundtracks
-This project features carefully selected songs that capture the emotions of our journey together:
+Home page – A simple opening message.
 
-🎵 "I Never Knew I Needed" – Ne-Yo
-🎵 "Blue" – Yung Kai
-🎵 "Living in the Dark (Evil Larry Theme)" – Myuu
-📸 Special Touches
-Polaroid-style images of our cherished moments
-Smooth animations to enhance the romantic feel
-Soft colors and a personal touch to make it truly special
-💖 Why I Made This
-This is more than just a webpage—it's a digital love letter, a collection of memories, and a reminder of the magic we share. Every detail, from the design to the music, was chosen with love.
+Letter page – A short letter presented in a creative format.
+
+Credits page – Scrolling end-credits featuring images and captions.
+
+Features
+
+Polaroid-style image sections with smooth animations.
+
+Background music to set the mood.
+
+A consistent visual theme across all pages.
+
+Soundtracks Used
+
+“I Never Knew I Needed” – Ne-Yo
+
+“Blue” – Yung Kai
+
+“Living in the Dark (Evil Larry Theme)” – Myuu
+
+Reflection
+Looking back now, I’ll admit this project feels a little corny—but that’s part of its charm. It’s a snapshot of where I was at the time, both creatively and personally, and that makes it worth keeping around.
