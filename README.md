@@ -1,7 +1,7 @@
-Overview
+Overview:
 This project was originally created as a personal Valentine's gift and is now kept here for archival purposes. It was a creative way to combine web design, multimedia, and storytelling through code at the time.
 
-Contents
+Contents:
 The project includes several static HTML pages:
 
 Home page – A simple opening message.
@@ -26,5 +26,5 @@ Soundtracks Used
 
 “Living in the Dark (Evil Larry Theme)” – Myuu
 
-Reflection
+Reflection:
 Looking back now, I’ll admit this project feels a little corny—but that’s part of its charm. It’s a snapshot of where I was at the time, both creatively and personally, and that makes it worth keeping around.
